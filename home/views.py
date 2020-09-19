@@ -17,3 +17,5 @@ def destinations(request):
     
 def contact(request):
     return render(request, 'home/contact.html', {})
+
+

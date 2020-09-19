@@ -98,6 +98,20 @@
         </div>
     </header>
     <!-- header-end -->
+    <ul  class="messages">
+        {%if messages%}
+          {%for message in messages%}
+
+               <div  class="alert alert-{{message.tags}}">
+
+                    {{message}}
+                  </div>
+
+          {%endfor%}
+      {%endif%}
+    </ul>
+
+
     {%block content%}
     {%endblock%}
     <footer class="footer">
@@ -257,7 +271,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
           </button>
         </div>
         <div class="modal-body">
-               <form method="POST" action="" class="form" action="" role="form" autocomplete="off"action="dash/index.html">
+               <form method="POST" action="{%url 'login' %}" class="form" action="" role="form" autocomplete="off"action="dash/index.html">
                             {%csrf_token%}
                               <div class="form-group">
                               <label style="float:right; font-weight:300; font-size:18;">اسم المستخدم</label>
