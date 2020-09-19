@@ -1,0 +1,776 @@
+{%load static%}
+<html lang="ar">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <link rel="title icon" href="{%static 'images/title-img.png'%}" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+    integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous" />
+  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"
+    integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe"
+    crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
+  <link rel="stylesheet" href="{%static 'css/adminStyle.css'%}" />
+  <title>الادمن</title>
+  <style>
+
+
+  </style>
+</head>
+
+<body dir="rtl">
+  <!-- navbar -->
+  <nav class="navbar navbar-expand-md navbar-light" dir="ltr">
+    <div class="navbar-collapse" id="myNavbar">
+
+      <div class="container-fluid">
+
+        <div class="row">
+
+          <!-- sidebar -->
+          <div class="col-xl-2 col-lg-3 col-md-4 sidebar fixed-top">
+            <br />
+            <div class="pb-3" dir="rtl" style="float: right;">
+            <img src="{%static 'img/logo.jpg'%}" width="150" class="rounded-circle mr-3" />
+
+              <h3 class="text-center"> {{request.user}} </h3>
+              <a class=" ml-auto mr-5 btn btn-warning" href="{%url 'logout' %}">تسجيل خروج</a>
+
+            </div>
+
+            <div style="clear: both;"></div>
+
+
+          </div>
+          <!-- end of sidebar -->
+
+          <ul style="text-align:center; margin-top:15px; width:100%;"  class="messages">
+            {%if messages%}
+            {%for message in messages%}
+                <div   dir="rtl" class="alert alert-{{message.tags}}">
+
+                    {{message}}
+              </div>
+                {%endfor%}
+             {%endif%}
+            </ul>
+
+          <!-- The Modal1-->
+ <div class="modal" id="note2" dir="rtl">
+            <div class="modal-dialog">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title"> اضافه اعلانات</h4>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <div class="col-xs-12">
+                    <form  action="{%url 'add_adv' %}" enctype="multipart/form-data" method="post" style=" text-align: center;">
+                      {%csrf_token%}
+                     <input type="file" id="files" name="img" multiple>
+                        <br>
+                  <button style="float:left;left:0px;"  type="button" class="btn btn-danger ml-1" data-dismiss="modal">اغلق</button>
+                  <button style="float:right; right:0;" type="submit" class="btn btn-success">إضافه</button>
+
+                    </form>
+                  </div>
+                </div>
+
+                <!-- Modal footer -->
+
+              </div>
+            </div>
+          </div>
+<div class="modal" id="myModal20" dir="rtl">
+            <div class="modal-dialog">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">إضافه باقة انترنت</h4>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <div class="col-xs-12">
+                    <form  action="{%url 'add_adsl_bunch' %}" method="post" style=" text-align: center;">
+                      {%csrf_token%}
+                      <div class="single-contact-form">
+
+                        <div class="contact-box name">
+                          <label for="">اختر الشركة</label>
+                         <select name='company' class='form-control'>
+                         <option value="Etisalat" >Etisalat</option>
+                         <option  value="Vodafone">Vodafone</option>
+                         <option  value="Orange">Orange</option>
+                         <option  value="We">We</option>
+
+                         </select>
+                        </div><br>
+                        <label>اسم الباقة</label>
+                        <input required="true" type = "text" name="bunch_name" class="form-control">
+                       <br>
+                      <label>سرعة الباقة</label>
+                        <input required="true" type = "number" name="bunch_speed" class="form-control">
+                       <br>
+                       <label>سعة الباقة</label>
+                        <input required="true" type = "number" name="bunch_space" class="form-control">
+                       <br>
+
+                         <label>سعر الباقه</label>
+                        <input required="true" type = "number" step='0.1' name="price" class="form-control">
+
+                      <br>
+
+                      </div>
+                      <br>
+                  <button style="float:left;left:0px;"  type="button" class="btn btn-danger ml-1" data-dismiss="modal">اغلق</button>
+                  <button style="float:right; right:0;" type="submit" class="btn btn-success">إضافه</button>
+
+                    </form>
+                  </div>
+                </div>
+
+                <!-- Modal footer -->
+
+              </div>
+            </div>
+          </div>
+            <div class="modal" id="myModal201" dir="rtl">
+            <div class="modal-dialog">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">إضافه تاجر </h4>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <div class="col-xs-12">
+                    <form  action="{%url 'add_trader' %}" method="post" style=" text-align: center;">
+                      {%csrf_token%}
+                      <div class="single-contact-form">
+
+                        <div class="contact-box name">
+                          <label for="">اسم المستخدم الخاص بالتاجر </label>
+                         <input type="text" name='trader_name' class='form-control'>
+                        </div><br>
+                        <label>رقم التاجر </label>
+                        <input required="true" type = "tel" maxlength="11" name="trader_phone" class="form-control">
+                       <br>
+                      <label>الرقم السرى</label>
+                        <input required="true" type = "password" name="password" class="form-control">
+                       <br>
+                      </div>
+                      <br>
+                  <button style="float:left;left:0px;"  type="button" class="btn btn-danger ml-1" data-dismiss="modal">اغلق</button>
+                  <button style="float:right; right:0;" type="submit" class="btn btn-success">إضافه</button>
+
+                    </form>
+                  </div>
+                </div>
+
+                <!-- Modal footer -->
+
+              </div>
+            </div>
+          </div>
+             <div class="modal" id="myModal2012" dir="rtl">
+            <div class="modal-dialog">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">إضافه مشرف </h4>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <div class="col-xs-12">
+                    <form  action="{%url 'add_manager' %}" method="post" style=" text-align: center;">
+                      {%csrf_token%}
+                      <div class="single-contact-form">
+
+                        <div class="contact-box name">
+                          <label for="">اسم المستخدم الخاص بالمشرف </label>
+                         <input type="text" name='name' class='form-control'>
+                        </div><br>
+                      <label>الرقم السرى</label>
+                        <input required="true" type = "password" name="password" class="form-control">
+                       <br>
+                      </div>
+                      <br>
+                  <button style="float:left;left:0px;"  type="button" class="btn btn-danger ml-1" data-dismiss="modal">اغلق</button>
+                  <button style="float:right; right:0;" type="submit" class="btn btn-success">إضافه</button>
+
+                    </form>
+                  </div>
+                </div>
+
+                <!-- Modal footer -->
+
+              </div>
+            </div>
+          </div>
+          <div class="modal" id="myModal10" dir="rtl">
+            <div class="modal-dialog">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">  بحث عن عميل </h4>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <div class="col-xs-12">
+                    <form  action="{%url 'search' %}" method="post" style=" text-align: center;">
+                      {%csrf_token%}
+                      <div class="single-contact-form">
+
+                        <div class="contact-box name">
+                        <label> رقم العميل </label>
+                      <input type="text" pattern="[0-9]{11}" name='phone' class="form-control">
+                    <br>
+                  <button style="float:left;left:0px;"  type="button" class="btn btn-danger ml-1" data-dismiss="modal">اغلق</button>
+                  <button style="float:right; right:0;" type="submit" class="btn btn-success">بحث</button>
+                      </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+
+                <!-- Modal footer -->
+
+              </div>
+            </div>
+            </div>
+
+         <div class="modal" id="myModal133" dir="rtl">
+            <div class="modal-dialog">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title"> ADSL بحث عن عميل </h4>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <div class="col-xs-12">
+                    <form  action="{%url 'adslsearch' %}" method="post" style=" text-align: center;">
+                      {%csrf_token%}
+                      <div class="single-contact-form">
+
+                        <div class="contact-box name">
+                        <label>  رقم الخط الارضى </label>
+                      <input type="text" pattern="[0-9]{10}" name='phone' class="form-control">
+                    <br>
+                  <button style="float:left;left:0px;"  type="button" class="btn btn-danger ml-1" data-dismiss="modal">اغلق</button>
+                  <button style="float:right; right:0;" type="submit" class="btn btn-success">بحث</button>
+                      </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+
+                <!-- Modal footer -->
+
+              </div>
+            </div>
+            </div>
+
+          <div class="modal" id="myModal9" dir="rtl">
+            <div class="modal-dialog">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">إضافه باقة جديده</h4>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <div class="col-xs-12">
+                    <form  action="{%url 'add_bunch' %}" method="post" style=" text-align: center;">
+                      {%csrf_token%}
+                      <div class="single-contact-form">
+
+                        <div class="contact-box name">
+                          <label for="">تصنيف الباقة</label>
+                         <select name='type' class='form-control'>
+                         <option value="internet">وحدات إنترنت</option>
+                         <option  value="voice">وحدات صوتيه</option>
+
+                         </select>
+                        </div><br>
+                        <label>عدد الوحدات</label>
+                        <input required="true" type = "number" name="bunch" class="form-control">
+                       <br>
+                        <label>مده الباقه</label>
+
+                       <select name="duration" class="form-control">
+                           <option value="30">
+                               30 يوم
+                           </option>
+                           <option value="90">
+                               90 يوم
+                           </option>
+
+                       </select>
+                       <br>
+
+                         <label>سعر الباقه</label>
+                        <input required="true" type = "number" step='0.1' name="price" class="form-control">
+
+                      <br>
+
+                      </div>
+                      <br>
+                  <button style="float:left;left:0px;"  type="button" class="btn btn-danger ml-1" data-dismiss="modal">اغلق</button>
+                  <button style="float:right; right:0;" type="submit" class="btn btn-success">إضافه</button>
+
+                    </form>
+                  </div>
+                </div>
+
+                <!-- Modal footer -->
+
+              </div>
+            </div>
+          </div>
+ <div class="modal" id="myModal91" dir="rtl">
+            <div class="modal-dialog">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">  بحث عن موظف</h4>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <div class="col-xs-12">
+                    <form  action="{% url 'get_emp_orders' %}" method="post" style=" text-align: center;">
+                      {%csrf_token%}
+                      <div class="single-contact-form">
+
+                        <div class="contact-box name">
+                          <label for="">اسم العميل</label>
+                         <select name='emp' class='form-control'>
+                         {% for item in employees%}
+                         <option value="{{item.id}}">{{item.username}}</option>
+                          {% endfor %}
+                         </select>
+                        </div><br>
+                        <label> من فترة</label>
+                        <input required="true" type = "date" name="from" class="form-control">
+                       <br>
+                        <label>الى فتره</label>
+                        <input required="true" type = "date" name="to" class="form-control">
+
+                      </div>
+                      <br>
+                  <button style="float:left;left:0px;"  type="button" class="btn btn-danger ml-1" data-dismiss="modal">اغلق</button>
+                  <button style="float:right; right:0;" type="submit" class="btn btn-success">بحث</button>
+
+                    </form>
+                  </div>
+                </div>
+
+                <!-- Modal footer -->
+
+              </div>
+            </div>
+          </div>
+             <div class="modal" id="myModal912" dir="rtl">
+            <div class="modal-dialog">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">  بحث زمنى عن تاجر</h4>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <div class="col-xs-12">
+                    <form  action="{% url 'get_trader_orders' %}" method="post" style=" text-align: center;">
+                      {%csrf_token%}
+                      <div class="single-contact-form">
+
+                        <div class="contact-box name">
+                          <label for="">اسم التاجر</label>
+                         <select name='traders' class='form-control'>
+                         {% for item in traders%}
+                         <option value="{{item.user.username}}">{{item.user.username}}</option>
+                          {% endfor %}
+                         </select>
+                        </div><br>
+                        <label> من فترة</label>
+                        <input required="true" type = "date" name="from" class="form-control">
+                       <br>
+                        <label>الى فتره</label>
+                        <input required="true" type = "date" name="to" class="form-control">
+
+                      </div>
+                      <br>
+                  <button style="float:left;left:0px;"  type="button" class="btn btn-danger ml-1" data-dismiss="modal">اغلق</button>
+                  <button style="float:right; right:0;" type="submit" class="btn btn-success">بحث</button>
+
+                    </form>
+                  </div>
+                </div>
+
+                <!-- Modal footer -->
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- end of Navbar -->
+
+  <!-- cards -->
+  <section>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xl-10 col-lg-9 col-md-8 mr-auto">
+          <div class="row pt-5 mt-3 mb-5">
+
+
+<div class="col-xl-6 col-sm-6 mb-3">
+
+              <div class="card card-comman">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between" dir="rtl">
+                    <div class="text-right text-secondary">
+                      <h5>عرض طلبات و باقات دماغ تانية  </h5><br>
+                      <a class="nav-item active">
+                        <a class="nav-link text-white p-3 current" href="{%url 'show_mobile_admin' %}">
+                       <i class="fas fa-plus text-light fa-lg mr-3"> </i>
+
+                          عرض
+                        </a>
+
+                      </a>
+                    </div>
+                       <i class="fas fa-plus text-light fa-lg mr-3"> </i>
+                  </div>
+                </div>
+              </div>
+
+
+
+            </div>
+<div class="col-xl-6 col-sm-6 mb-3">
+
+              <div class="card card-comman">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between" dir="rtl">
+                    <div class="text-right text-secondary">
+                      <h5>عرض طلبات و باقات ADSL  </h5><br>
+                      <a class="nav-item active">
+                        <a class="nav-link text-white p-3 current" href="{%url 'adsl_bunches' %}">
+                       <i class="fas fa-plus text-light fa-lg mr-3"> </i>
+
+                          عرض
+                        </a>
+
+                      </a>
+                    </div>
+                       <i class="fas fa-plus text-light fa-lg mr-3"> </i>
+                  </div>
+                </div>
+              </div>
+
+
+
+            </div>
+                <div class="col-xl-6 col-sm-6 mb-3">
+
+              <div class="card card-comman">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between" dir="rtl">
+                    <div class="text-right text-secondary">
+                      <h5>بحث زمنى عن الموظفين   </h5><br>
+                      <a class="nav-item active">
+                        <a class="nav-link text-white p-3 current" data-toggle="modal" data-target="#myModal91" href="#">
+                       <i class="fas fa-plus text-light fa-lg mr-3"> </i>
+
+                          بحث
+                        </a>
+
+                      </a>
+                    </div>
+                       <i class="fas fa-plus text-light fa-lg mr-3"> </i>
+                  </div>
+                </div>
+              </div>
+
+
+
+            </div>
+
+
+ <div class="col-xl-6 col-sm-6 mb-3">
+
+              <div class="card card-comman">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between" dir="rtl">
+                    <div class="text-right text-secondary">
+                      <h5>عرض الموظفين </h5><br>
+                      <a class="nav-item active">
+                        <a class="nav-link text-white p-3 current" href="{%url 'employees' %}">
+                       <i class="fas fa-plus text-light fa-lg mr-3"> </i>
+
+                          عرض
+                        </a>
+
+                      </a>
+                    </div>
+                       <i class="fas fa-plus text-light fa-lg mr-3"> </i>
+                  </div>
+                </div>
+              </div>
+
+
+
+            </div>
+
+
+
+
+ <div class="col-xl-6 col-sm-6 mb-3">
+
+              <div class="card card-comman">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between" dir="rtl">
+                    <div class="text-right text-secondary">
+                      <h5>  ADSL بحث عن عميل  </h5><br>
+                      <a class="nav-item active">
+                        <a class="nav-link text-white p-3 current" href=""data-target="#myModal133" data-toggle="modal">
+                       <i class="fas fa-plus text-light fa-lg mr-3"> </i>
+
+                          بحث
+                        </a>
+
+                      </a>
+                    </div>
+                       <i class="fas fa-plus text-light fa-lg mr-3"> </i>
+                  </div>
+                </div>
+              </div>
+
+
+
+            </div>
+ <div class="col-xl-6 col-sm-6 mb-3">
+
+              <div class="card card-comman">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between" dir="rtl">
+                    <div class="text-right text-secondary">
+                      <h5>بحث عن عميل  </h5><br>
+                      <a class="nav-item active">
+                        <a class="nav-link text-white p-3 current" href=""data-target="#myModal10" data-toggle="modal">
+                       <i class="fas fa-plus text-light fa-lg mr-3"> </i>
+
+                          بحث
+                        </a>
+
+                      </a>
+                    </div>
+                       <i class="fas fa-plus text-light fa-lg mr-3"> </i>
+                  </div>
+                </div>
+              </div>
+
+
+
+            </div>
+<div class="col-xl-6 col-sm-6 mb-3">
+
+
+              <div class="card card-comman">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between" dir="rtl">
+                    <div class="text-right text-secondary">
+                      <h5>اضافه إعلانات </h5><br>
+                      <a class="nav-item active">
+                        <a class="nav-link text-white p-3 current" href=""data-target="#note2" data-toggle="modal">
+                       <i class="fas fa-plus text-light fa-lg mr-3"> </i>
+
+                                اضافه
+                        </a>
+
+                      </a>
+                    </div>
+                       <i class="fas fa-plus text-light fa-lg mr-3"> </i>
+                  </div>
+                </div>
+              </div>
+
+
+
+            </div>
+<div class="col-xl-6 col-sm-6 mb-3">
+
+
+              <div class="card card-comman">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between" dir="rtl">
+                    <div class="text-right text-secondary">
+                      <h5>اضافه تاجر </h5><br>
+                      <a class="nav-item active">
+                        <a class="nav-link text-white p-3 current" href=""data-target="#myModal201" data-toggle="modal">
+                       <i class="fas fa-plus text-light fa-lg mr-3"> </i>
+
+                                اضافه
+                        </a>
+
+                      </a>
+                    </div>
+                       <i class="fas fa-plus text-light fa-lg mr-3"> </i>
+                  </div>
+                </div>
+              </div>
+
+
+
+            </div>
+<div class="col-xl-6 col-sm-6 mb-3">
+
+
+<div class="card card-comman">
+<div class="card-body">
+  <div class="d-flex justify-content-between" dir="rtl">
+    <div class="text-right text-secondary">
+      <h5>عرض التجار  </h5><br>
+      <a class="nav-item active">
+        <a class="nav-link text-white p-3 current" href="{%url 'show_traders' %}">
+       <i class="fas fa-plus text-light fa-lg mr-3"> </i>
+
+                عرض
+        </a>
+
+      </a>
+    </div>
+       <i class="fas fa-plus text-light fa-lg mr-3"> </i>
+  </div>
+</div>
+</div>
+
+
+
+</div>
+
+<div class="col-xl-6 col-sm-6 mb-3">
+
+<div class="card card-comman">
+<div class="card-body">
+  <div class="d-flex justify-content-between" dir="rtl">
+    <div class="text-right text-secondary">
+      <h5>بحث زمنى عن التجار   </h5><br>
+      <a class="nav-item active">
+        <a class="nav-link text-white p-3 current" data-toggle="modal" data-target="#myModal912" href="#">
+       <i class="fas fa-plus text-light fa-lg mr-3"> </i>
+
+          بحث
+        </a>
+
+      </a>
+    </div>
+       <i class="fas fa-plus text-light fa-lg mr-3"> </i>
+  </div>
+</div>
+</div>
+
+
+
+</div>
+<div class="col-xl-6 col-sm-6 mb-3">
+
+
+<div class="card card-comman">
+<div class="card-body">
+  <div class="d-flex justify-content-between" dir="rtl">
+    <div class="text-right text-secondary">
+      <h5>اضافه مشرف </h5><br>
+      <a class="nav-item active">
+        <a class="nav-link text-white p-3 current" href=""data-target="#myModal2012" data-toggle="modal">
+       <i class="fas fa-plus text-light fa-lg mr-3"> </i>
+
+                اضافه
+        </a>
+
+      </a>
+    </div>
+       <i class="fas fa-plus text-light fa-lg mr-3"> </i>
+  </div>
+</div>
+</div>
+
+
+
+</div>
+              <div class="col-xl-6 col-sm-6 mb-3">
+
+
+<div class="card card-comman">
+<div class="card-body">
+  <div class="d-flex justify-content-between" dir="rtl">
+    <div class="text-right text-secondary">
+      <h5>عرض المشرفين </h5><br>
+      <a class="nav-item active">
+        <a class="nav-link text-white p-3 current" href="{%url 'show_managers' %}">
+       <i class="fas fa-plus text-light fa-lg mr-3"> </i>
+
+                اضافه
+        </a>
+
+      </a>
+    </div>
+       <i class="fas fa-plus text-light fa-lg mr-3"> </i>
+  </div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- end of cards -->
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+    integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+    crossorigin="anonymous"></script>
+  <script src="{%static 'js/adminScript.js'%}"></script>
+
+
+
+
+
+
+
+</body>
+
+</html>
