@@ -36,6 +36,8 @@ class Trip(models.Model):
     end_at =  models.DateTimeField()
     t_mobile = models.CharField(max_length=20)
     t_location = models.CharField(max_length=220)
+    t_image = models.ImageField(upload_to='trip images',null= True)
+    
 
 
 
@@ -46,8 +48,8 @@ class Resturant(models.Model):
     r_menu_image =  models.ImageField(upload_to='menue images')
     r_country = models.CharField(max_length=220)
     created_at = models.DateTimeField(auto_now_add=True)
-    open_at =  models.DateTimeField()
-    close_at =  models.DateTimeField()
+    open_at =  models.TimeField(null=True)
+    close_at =  models.TimeField(null=True)
     r_mobile = models.CharField(max_length=20)
     t_location = models.CharField(max_length=220)
 
@@ -59,5 +61,7 @@ class Country(models.Model):
     c_hotels = models.ManyToManyField(Hotel)
     c_resturants = models.ManyToManyField(Resturant)
     c_trips = models.ManyToManyField(Trip)
+    c_image = models.ImageField(upload_to='countries', null=True)
+
 
 
