@@ -1,0 +1,273 @@
+{%extends 'home/base.html' %}
+{%block title%}
+Members Reservations
+{%endblock%}
+
+{%block content%}
+<div class="where_togo_area">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-3">
+                <div class="form_area">
+                    <h3>What is your ID Number?</h3>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="search_wrap">
+                    <form class="search_form" method="POST">
+                        {%csrf_token%}
+                        <div class="input_field">
+                            <input type="text" placeholder="Where to go?">
+                        </div>
+                        <div class="input_field">
+                     <input type="text"  placeholder="Enter Your ID Number" name="m_id">
+                        </div>
+                        <div class="search_btn">
+                            <button class="boxed-btn4 " type="submit" >Search</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%if request.method == "GET"%}
+<h3 style=" padding-top: 20; padding-bottom: 20; text-align: center; font-family: Verdana, Geneva, Tahoma, sans-serif;"> Enter Your ID Number </h3>
+{%else%}
+<table class="table table-hover table-responsive">
+    <thead>
+   
+      <tr style="font-size:18;font-weight:600">
+        <td>Trip Image</td>
+        
+        <td>Trip Destination</td>
+        
+        <td>Trip country</td>
+        
+        <td>Trip mobile </td>
+        <td>trip start at</td>
+        <td>trip end at </td>
+        
+        
+
+      </tr>
+
+
+    </thead>
+    <tbody>
+      {% for item in tres%}
+      <tr>
+     <td><img src="{{item.trip.t_image.url}}" width="100"></td>
+     
+     <td>
+      {{item.trip.t_destination}}
+    
+    </a>
+      
+    </td>
+    <td>{{item.trip.t_conutry}}</td>
+
+     <td>{{item.trip.t_mobile}}</td>
+    <td>{{item.trip.start_at}}</td>
+    <td>{{item.trip.end_at}}</td>
+   
+          
+    
+      </tr>
+
+<div class="modal fade" id="del{{item.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="del">Delete Country </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+             <form method="POST"action="{%url 'delete_country' item.id %}" class="form" action="" role="form" autocomplete="off"action="dash/index.html">
+                          {%csrf_token%}
+                      
+                      <h5 style="color:red;text-align:center;">Are You sure You want to delete this Country</h5>
+
+      <div class="modal-footer">
+        <button style="float:left;left:0px;"  type="button" class="btn btn-danger ml-1" data-dismiss="modal">Go Back</button>
+        <button style="float:right; right:0;" type="submit" class="btn btn-success">Yes, I am Sure</button>
+
+      </div>
+
+                        </form>
+
+      </div>
+     </div>
+  </div>
+</div>
+{%empty%}
+<h3 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+There is No reservation Yet
+</h3>    
+      {% endfor %}
+
+
+     </tbody>
+  </table>
+  <table class="table table-hover table-responsive">
+    <thead>
+   
+      <tr style="font-size:18;font-weight:600">
+        <td>Hotel Image</td>
+        
+        <td>Hotel location</td>
+        
+        <td>Hotel country</td>
+        
+        <td>Hotel mobile </td>
+        <td>Reservation start at</td>
+        <td>Reservation end at </td>
+        
+        
+
+      </tr>
+
+
+    </thead>
+    <tbody>
+      {% for item in hres%}
+      <tr>
+     <td><img src="{{item.hotel.h_image.url}}" width="100"></td>
+     
+     <td>
+      {{item.hotel.h_location}}
+    
+    </a>
+      
+    </td>
+    <td>{{item.hotel.h_country}}</td>
+
+     <td>{{item.hotel.h_mobile}}</td>
+    <td>{{item.reservation_date}}</td>
+    <td>{{item.cancelation_date}}</td>
+   
+          
+    
+      </tr>
+
+<div class="modal fade" id="del{{item.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="del">Delete Country </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+             <form method="POST"action="{%url 'delete_country' item.id %}" class="form" action="" role="form" autocomplete="off"action="dash/index.html">
+                          {%csrf_token%}
+                      
+                      <h5 style="color:red;text-align:center;">Are You sure You want to delete this Country</h5>
+
+      <div class="modal-footer">
+        <button style="float:left;left:0px;"  type="button" class="btn btn-danger ml-1" data-dismiss="modal">Go Back</button>
+        <button style="float:right; right:0;" type="submit" class="btn btn-success">Yes, I am Sure</button>
+
+      </div>
+
+                        </form>
+
+      </div>
+     </div>
+  </div>
+</div>
+{%empty%}
+<h3 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+There is No reservation Yet
+</h3>    
+      {% endfor %}
+
+
+     </tbody>
+  </table>
+  <table class="table table-hover table-responsive">
+    <thead>
+   
+      <tr style="font-size:18;font-weight:600">
+        <td>Resturant Image</td>
+        
+        <td>Resturant location</td>
+        
+        <td>Resturant country</td>
+        
+        <td>Resturant mobile </td>
+        <td>Resturant reservation_date</td>
+        
+        <td>Resturant open at</td>
+        <td>Resturant close at </td>
+        
+        
+
+      </tr>
+
+
+    </thead>
+    <tbody>
+      {% for item in rres%}
+      <tr>
+     <td><img src="{{item.resturant.r_image.url}}" width="100"></td>
+     
+     <td>
+      {{item.resturant.t_location}}
+    
+    </a>
+      
+    </td>
+    <td>{{item.resturant.r_conutry}}</td>
+
+     <td>{{item.resturant.r_mobile}}</td>
+     <td>{{item..reservation_date}}</td>
+     
+    <td>{{item.resturant.open_at}}</td>
+    <td>{{item.resturant.close_at}}</td>
+   
+          
+    
+      </tr>
+
+<div class="modal fade" id="del{{item.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="del">Delete Country </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+             <form method="POST"action="{%url 'delete_country' item.id %}" class="form" action="" role="form" autocomplete="off"action="dash/index.html">
+                          {%csrf_token%}
+                      
+                      <h5 style="color:red;text-align:center;">Are You sure You want to delete this Country</h5>
+
+      <div class="modal-footer">
+        <button style="float:left;left:0px;"  type="button" class="btn btn-danger ml-1" data-dismiss="modal">Go Back</button>
+        <button style="float:right; right:0;" type="submit" class="btn btn-success">Yes, I am Sure</button>
+
+      </div>
+
+                        </form>
+
+      </div>
+     </div>
+  </div>
+</div>
+{%empty%}
+<h3 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+There is No reservation Yet
+</h3>    
+      {% endfor %}
+
+
+     </tbody>
+  </table>
+{%endif%}
+{%endblock%}
