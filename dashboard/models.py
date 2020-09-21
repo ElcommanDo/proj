@@ -7,12 +7,13 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 
-
 class Member(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     m_contact = models.CharField(max_length=300)
-    m_mobile = models.CharField(max_length=15)
-
+    m_mobile = models.CharField(max_length=15, blank=True,null=True)
+    m_name = models.CharField(max_length=300 ,blank=True,null=True)
+    m_age = models.IntegerField(blank=True,null=True)
+    m_gender = models.CharField(max_length=300, blank=True,null=True)
+    m_id = models.CharField(max_length=300, blank=True,null=True)
 
 
 
@@ -29,7 +30,7 @@ class Hotel(models.Model):
 class Trip(models.Model):
     t_destination = models.CharField(max_length=250)
     t_price = models.DecimalField(max_digits=11, decimal_places=2)
-    t_members = models.ManyToManyField(Member)
+    t_members = models.ManyToManyField(Member, blank=True)
     T_country = models.CharField(max_length=220)
     created_at = models.DateTimeField(auto_now_add=True)
     start_at =  models.DateTimeField()
@@ -58,10 +59,33 @@ class Resturant(models.Model):
 
 class Country(models.Model):
     c_name = models.CharField(max_length=220)
-    c_hotels = models.ManyToManyField(Hotel)
-    c_resturants = models.ManyToManyField(Resturant)
-    c_trips = models.ManyToManyField(Trip)
+    c_hotels = models.ManyToManyField(Hotel,blank=True)
+    c_resturants = models.ManyToManyField(Resturant,blank=True)
+    c_trips = models.ManyToManyField(Trip,blank=True)
     c_image = models.ImageField(upload_to='countries', null=True)
 
 
+
+class Hotel_reservations(models.Model):
+    member = models.ForeignKey(Member, blank=True, on_delete=models.CASCADE)
+    hotel = models.ForeignKey(Hotel, blank=True, on_delete=models.CASCADE)
+    reservation_date = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    cancelation_date = models.DateTimeField(null=True, blank=True)
+
+    
+class trip_reservations(models.Model):
+    member = models.ForeignKey(Member, blank=True, on_delete=models.CASCADE)
+    trip = models.ForeignKey(Trip, blank=True, on_delete=models.CASCADE)
+    reservation_date = models.DateTimeField( blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    cancelation_date = models.DateTimeField(null=True, blank=True)
+
+
+class resturant_reservations(models.Model):
+    member = models.ForeignKey(Member, blank=True, on_delete=models.CASCADE)
+    resturant = models.ForeignKey(Resturant, blank=True, on_delete=models.CASCADE)
+    reservation_date = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    cancelation_date = models.DateTimeField(null=True, blank=True)
 

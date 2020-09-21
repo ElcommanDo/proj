@@ -1,0 +1,263 @@
+{%extends 'home/base.html' %}
+{%load static%}
+{%block title%}
+{{country.c_name}} Details
+{%endblock%}
+
+{%block content%}
+    <!-- slider_area_start -->
+   
+    <!-- slider_area_end -->
+
+    <!-- where_togo_area_start  -->
+  
+    <!-- where_togo_area_end  -->
+    
+    <!-- popular_destination_area_start  -->
+    <div class="popular_destination_area">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="section_title text-center mb_70">
+                        <h3>Popular Hotels</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {%for hotel in country.c_hotels.all%}
+               
+                <div class="col-lg-4 col-md-6">
+                    <div class="single_place">
+                        <div class="thumb">
+                            <img src="{{hotel.h_image.url}}" alt="">
+                          
+                        </div><br>
+                        <div class="place_info">
+                            <h4>Address: {{hotel.h_address}}</h4>
+  
+                            <a><h3>location: {{hotel.h_location}}</h3></a>
+                            <h5>country: {{hotel.h_country}}</h5>
+                            <h5> contact: {{hotel.h_mobile}}</h5>
+                            <a href="#" style="color: orangered;" class="prise">{{hotel.r_price}} $</a>
+                            <br>
+                            <div class="rating_days d-flex justify-content-between">
+                                {%if request.user.is_superuser%}
+                                <a href="" data-target="#del_hotel{{hotel.id}}" data-toggle="modal" class="btn btn-danger">Delete</a>
+                            
+                                {%else%}
+                             <a href="" class="btn btn-success">Make a reservation</a>
+                            {%endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="del_hotel{{hotel.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="del">Delete Country </h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                               <form method="POST"action="{%url 'delete_country' hotel.id %}" class="form" action="" role="form" autocomplete="off"action="dash/index.html">
+                                            {%csrf_token%}
+                                        
+                                        <h5 style="color:red;text-align:center;">Are You sure You want to delete this Country</h5>
+                  
+                        <div class="modal-footer">
+                          <button style="float:left;left:0px;"  type="button" class="btn btn-danger ml-1" data-dismiss="modal">Go Back</button>
+                          <button style="float:right; right:0;" type="submit" class="btn btn-success">Yes, I am Sure</button>
+                  
+                        </div>
+                  
+                                          </form>
+                  
+                        </div>
+                       </div>
+                    </div>
+                  </div>
+                      
+                {%endfor%}
+                
+            </div>
+        </div>
+    </div>
+    <!-- popular_destination_area_end  -->
+
+    <!-- newletter_area_start  -->
+  
+    <!-- newletter_area_end  -->
+
+    <div class="popular_places_area">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="section_title text-center mb_70">
+                        <h3>Popular Trips</h3>
+                        <p>Suffered alteration in some form, by injected humour or good day randomised booth anim 8-bit hella wolf moon beard words.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {%for item in country.c_trips.all%}
+                <div class="col-lg-4 col-md-6">
+                    <div class="single_place">
+                        <div class="thumb">
+                            <img src="{{item.t_image.url}}" alt="">
+                            <a href="#" class="prise">{{item.t_price}}</a>
+                        </div>
+                        <div class="place_info">
+                           
+                            <a><h3>{{item.t_location}}</h3></a>
+                            <h3>{{item.t_country}}</h3>
+                            <h4>{{item.t_mobile}}</h4>
+                            <br>
+                            <div class="rating_days d-flex justify-content-between">
+                             
+                                <br>
+                                <div class="days">
+                                
+                                    <i class="fa fa-clock-o"></i>
+                                
+                                    <a href="#">from {{item.start_at}} to {{item.end_at}}</a>
+                                    <h5>
+
+                                    <a href="" data-togle="" data-target="">Members count: {{item.members.all|length}}</a>
+                                </h5>
+                                
+                                </div>
+                                
+                            </div>
+                            {%if request.user.is_superuser%}
+                            <a href="" data-toggle="modal" data-target="#del{{item.id}}" class="btn btn-danger">Delete</a>
+                        
+                            {%else%}
+                         <a href="" class="btn btn-success">Make a reservation</a>
+                        {%endif %}
+                        
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="del{{item.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="del">Delete Country </h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                               <form method="POST"action="{%url 'delete_country' item.id %}" class="form" action="" role="form" autocomplete="off"action="dash/index.html">
+                                            {%csrf_token%}
+                                        
+                                        <h5 style="color:red;text-align:center;">Are You sure You want to delete this Country</h5>
+                  
+                        <div class="modal-footer">
+                          <button style="float:left;left:0px;"  type="button" class="btn btn-danger ml-1" data-dismiss="modal">Go Back</button>
+                          <button style="float:right; right:0;" type="submit" class="btn btn-success">Yes, I am Sure</button>
+                  
+                        </div>
+                  
+                                          </form>
+                  
+                        </div>
+                       </div>
+                    </div>
+                  </div>
+                      
+                {%endfor%}
+            </div>
+          
+        </div>
+    </div>
+
+
+   
+
+
+    <!-- testimonial_area  -->
+
+    <!-- /testimonial_area  -->
+
+
+    <div class="recent_trip_area">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="section_title text-center mb_70">
+                        <h3>Recent Resturants</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {%for item in country.c_resturants.all%}
+                <div class="col-lg-4 col-md-6">
+                    <div class="single_trip">
+                        <div class="thumb">
+                            <img src="{{item.r_image.url}}" alt="">
+                        </div>
+                        <div class="info">
+                            <a href="#">
+                                <h3>{{item.r_name}}</h3>
+                                <h4>Address: {{item.r_address}}</h4>
+                                
+                                <h5 style="color:steelblue">location: {{item.t_location}}</h5>
+                                <h5 style="color:steelblue">country: {{item.r_country}}</h5>
+                                <h5 style="color:steelblue">open at: {{item.open_at}}</h5>
+                                <h5 style="color:steelblue">close at: {{item.close_at}}</h5>
+                                
+                                
+                            </a>
+
+                        </div>
+                        <div class="rating_days d-flex justify-content-between">
+                            {%if request.user.is_superuser%}
+                            <a href="" data-target="#del_rest{{item.id}}" data-toggle="modal" class="btn btn-danger">Delete</a>
+                        
+                            {%else%}
+                         <a href="" class="btn btn-success">Make a reservation</a>
+                        {%endif %}
+                        </div>
+                       
+                    </div>
+                </div>
+                <div class="modal fade" id="del_rest{{item.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="del">Delete Country </h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                               <form method="POST"action="{%url 'delete_country' item.id %}" class="form" action="" role="form" autocomplete="off"action="dash/index.html">
+                                            {%csrf_token%}
+                                        
+                                        <h5 style="color:red;text-align:center;">Are You sure You want to delete this Country</h5>
+                  
+                        <div class="modal-footer">
+                          <button style="float:left;left:0px;"  type="button" class="btn btn-danger ml-1" data-dismiss="modal">Go Back</button>
+                          <button style="float:right; right:0;" type="submit" class="btn btn-success">Yes, I am Sure</button>
+                  
+                        </div>
+                  
+                                          </form>
+                  
+                        </div>
+                       </div>
+                    </div>
+                  </div>
+               {%endfor%}
+            </div>
+        </div>
+    </div>
+
+
+{%endblock%}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>

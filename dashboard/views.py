@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from . import models
+from .models import Hotel_reservations, resturant_reservations, trip_reservations, Member
+from django.core.mail import send_mail
 # Create your views here.
 
 
@@ -126,9 +128,9 @@ def show_countries(request):
     return render(request, 'dash/countries.html', {'countries':countries})
 
 def show_countries_details(request, id):
-    countries = models.Country.objects.get(id=id)
+    country = models.Country.objects.get(id=id)
     
-    return render(request, 'dash/countries.html', {'country':country})
+    return render(request, 'dash/country_details.html', {'country':country})
 
 
 def delete_country(request, id):
@@ -136,3 +138,84 @@ def delete_country(request, id):
     c.delete()
     messages.success(request, 'Country Deleted successfully')
     return redirect('show_countries')
+
+
+import datetime
+
+def make_hotels_reservation(request, id):
+    res = Hotel_reservations()
+    member = Member()
+    hotel = models.Hotel.objects.get(id=id)
+    cd = request.POST
+    if not Member.objects.filter(m_id=cd['m_id']):
+
+        member.m_name = cd['m_name']
+        member.m_age = cd['m_age']
+        member.m_mobile = cd['m_mobile']
+        member.m_contact = cd['m_contact']
+        member.m_id = cd['m_id']
+        member.m_gender = cd['gender']
+        member.save()
+    else:
+        member = Member.objects.filter(m_id=cd['m_id'])[0]
+    
+    res.member = member
+    res.hotel = hotel
+    res.reservation_date = cd['start_date']
+    res.cancelation_date = cd['checkout']
+    res.save()
+    messages.success(request, 'your order has been added successfully')
+    return redirect('home')
+
+
+def make_trip_reservation(request, id):
+    res = trip_reservations()
+    member = Member()
+    trip = models.Trip.objects.get(id=id)
+    cd = request.POST
+    if not Member.objects.filter(m_id=cd['m_id']):
+
+        member.m_name = cd['m_name']
+        member.m_age = cd['m_age']
+        member.m_mobile = cd['m_mobile']
+        member.m_contact = cd['m_contact']
+        member.m_id = cd['m_id']
+        member.m_gender = cd['gender']
+        member.save()
+    else:
+        member = Member.objects.filter(m_id=cd['m_id'])[0]
+    if trip_reservations.objects.filter(member__id=member.id, trip=trip):
+        messages.warning(request, 'you already registered to this trip before contact {} for more details'.format(trip.t_mobile))
+        return redirect('home')
+    
+    res.member = member
+    res.trip = trip
+    res.reservation_date = datetime.datetime.now()
+    res.save()
+    messages.success(request, 'your order has been added successfully')
+    return redirect('home')
+
+
+def make_resturant_reservation(request, id):
+    res = resturant_reservations()
+    member = Member()
+    resturant = models.Resturant.objects.get(id=id)
+    cd = request.POST
+    if not Member.objects.filter(m_id=cd['m_id']):
+
+        member.m_name = cd['m_name']
+        member.m_age = cd['m_age']
+        member.m_mobile = cd['m_mobile']
+        member.m_contact = cd['m_contact']
+        member.m_id = cd['m_id']
+        member.m_gender = cd['gender']
+        member.save()
+    else:
+        member = Member.objects.filter(m_id=cd['m_id'])[0]
+  
+    res.member = member
+    res.resturant = resturant
+    res.reservation_date = datetime.datetime.now()
+    res.save()
+    messages.success(request, 'your order has been added successfully')
+    return redirect('home')

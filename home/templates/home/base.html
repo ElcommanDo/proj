@@ -60,10 +60,12 @@
                                         <ul id="navigation">
                                             <li><a class="active" href="{%url 'home' %}">home</a></li>
                                             <li><a href="{%url 'about' %}">About</a></li>
-                                            <li><a class="" href="{%url 'destinations' %}">Destination</a></l/li>
+                                            <li><a class="" href="{%url 'travel_destinations' %}">Destination</a></l/li>
                                         {%if request.user.is_authenticated and request.user.is_superuser  %}
                                                 <li><a class="" href="{%url 'adminstration' %}">Dashboard</a></l/li>
-                                             {%endif%}
+                                            
+                                                    <li><a class="" href="{%url 'logout' %}">logout</a></l/li>
+                                                        {%endif%}
                                             <li><a href="{%url 'contact' %}">Contact</a></li>
                                         </ul>
                                     </nav>
@@ -312,7 +314,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="{%static 'js/ajax-form.js'%}"></script>
     <script src="{%static 'js/waypoints.min.js'%}"></script>
     <script src="{%static 'js/jquery.counterup.min.js'%}"></script>
-    <script src="{%static 'js/imagesloaded.pkgd.min.js'%}"></script>
+     <script src="{%static 'js/imagesloaded.pkgd.min.js'%}"></script>
     <script src="{%static 'js/scrollIt.js'%}"></script>
     <script src="{%static 'js/jquery.scrollUp.min.js'%}"></script>
     <script src="{%static 'js/wow.min.js'%}"></script>

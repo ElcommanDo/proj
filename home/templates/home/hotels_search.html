@@ -1,7 +1,7 @@
 {%extends 'home/base.html' %}
 {%load static%}
 {%block title%}
-Travel Destinations
+Hotels in Travelo
 {% endblock %}
 {%block content%}
     <!-- bradcam_area  -->
@@ -10,7 +10,7 @@ Travel Destinations
             <div class="row">
                 <div class="col-xl-12">
                     <div class="bradcam_text text-center">
-                        <h3>Destinations</h3>
+                        <h3>Hotels</h3>
                         <p>Pixel perfect design with awesome contents</p>
                     </div>
                 </div>
@@ -66,10 +66,10 @@ Travel Destinations
                             <div class="filter_inner">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <form method="POST" action="{%url 'search' %}">
+                                        <form method="POST" action="{%url 'hotels_search' %}">
                                             {%csrf_token %}
                                         <div class="single_select">
-                                            <select name="country">
+                                            <select name="count">
                                           {%for country in countries%}
                                           <option value="{{country.c_name}}">{{country.c_name}}</option>
                                           {%endfor%}
@@ -81,8 +81,8 @@ Travel Destinations
                                             <span class="range">Prise range</span>
                                             <div id="slider-range"></div>
                                             <p>
-                                                <input class="form-control" type="number" placeholder="Beginning price" id="amount" name="from_price">
-                                                <input class="form-control" type="number" placeholder="end price" id="amount" name="to_price">
+                                                <input class="form-control" type="number" placeholder="Beginning price" name="from">
+                                                <input class="form-control" type="number" placeholder="end price" name="to">
                                               
                                             </p>
                                         </div>
@@ -102,51 +102,39 @@ Travel Destinations
                 </div>
                 <div class="col-lg-8">
                     <div class="row">
-                     {%for trip in trips%}
+                     {%for hotel in hotels%}
                         
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single_place">
-                                <div class="thumb">
-                                    <img src="{{trip.t_image.url}}" alt="">
-                                    <a href="#" class="prise">${{trip.t_price}}</a>
-                                </div>
-                                    <br>
-                                    <a href=""><h3>{{trip.t_destination}}</h3></a>
+                     <div class="col-lg-6 col-md-6">
+                        <div class="single_place">
+                            <div class="thumb">   
+                                <img src="{{hotel.h_image.url}}" alt="">
                               
-                                <div class="place_info">
-                                    <div class="rating_days d-flex justify-content-between">
-                                        <span class="d-flex justify-content-center align-items-center">
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i>
-                                             <a href="#">(20 Review)</a>
-                                        </span>
-                                       
-                                    </div>
-                                    <div class="days">
-                                        <i class="fa fa-clock-o"></i>
-                                        <a href="#">from {{trip.start_at}} to {{trip.end_at}} </a>
-                                    </div>
-                                    <p>{{trip.T_country}}</p>
-                                   <h5>contacts: {{trip.t_mobile}}</h5>
-
-                                    <a href="#" data-toggle="modal" data-target="#exampleModal{{trip.id}}" class="btn btn-success">Make a Reservation</a>
+                            </div><br>
+                            <div class="place_info">
+                                <h4>Address: {{hotel.h_address}}</h4>
+      
+                                <a><h3>location: {{hotel.h_location}}</h3></a>
+                                <h5>country: {{hotel.h_country}}</h5>
+                                <h5> contact: {{hotel.h_mobile}}</h5>
+                                <a href="#" style="color: orangered;" class="prise">{{hotel.r_price}} $</a>
+                                <br>
+                                <div class="rating_days d-flex justify-content-between">
+                                 <a href="" data-toggle="modal" data-target="#exampleModal{{hotel.id}}" class="btn btn-success">Make a reservation</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="modal fade" id="exampleModal{{trip.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    </div>
+                        <div class="modal fade" id="exampleModal{{hotel.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLabel00">admin login </h5>
+                                  <h5 class="modal-title" id="exampleModalLabel00">Hotel booking </h5>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                   </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form  action="{%url 'trip_reservation' trip.id %}" method="post" style=" text-align: center;">
+                                    <form  action="{%url 'hotel_reservation' hotel.id %}" method="post" style=" text-align: center;">
                                         {%csrf_token%}
                                         <div class="single-contact-form">
                           
@@ -183,11 +171,19 @@ Travel Destinations
                                       <input required="true" type = "text"  name="m_id" class="form-control">
                           
                                     <br>
-                          
+                                    <label>start date</label>
+                                    <input required="true" type = "date"  name="start_date" class="form-control">
+                        
+                                  <br>
+                                  <label>checkout date</label>
+                                  <input required="true" type = "date"  name="checkout" class="form-control">
+                      
+                                <br>
+                      
                                         </div>
                                         <br>
                                     <button  style="float:right; right:0;" type="button" class="btn btn-danger ml-1" data-dismiss="modal">Close</button>
-                                    <button style="float:left;left:0px;" type="submit" class="btn btn-success">Make Reserve</button>
+                                    <button style="float:left;left:0px;" type="submit" class="btn btn-success">Make Reserve</button >
                           
                                       </form>
                           

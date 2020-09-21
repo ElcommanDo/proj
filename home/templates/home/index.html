@@ -10,12 +10,13 @@ Home Page
     <!-- slider_area_start -->
     <div class="slider_area">
         <div class="slider_active owl-carousel">
+            {%for country in countries%}
             <div class="single_slider  d-flex align-items-center slider_bg_1 overlay">
                 <div class="container">
                     <div class="row align-items-center">
                         <div class="col-xl-12 col-md-12">
                             <div class="slider_text text-center">
-                                <h3>Indonesia</h3>
+                                <h3>{{country.c_name}}</h3>
                                 <p>Pixel perfect design with awesome contents</p>
                                 <a href="#" class="boxed-btn3">Explore Now</a>
                             </div>
@@ -23,32 +24,8 @@ Home Page
                     </div>
                 </div>
             </div>
-            <div class="single_slider  d-flex align-items-center slider_bg_2 overlay">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-xl-12 col-md-12">
-                            <div class="slider_text text-center">
-                                <h3>Australia</h3>
-                                <p>Pixel perfect design with awesome contents</p>
-                                <a href="#" class="boxed-btn3">Explore Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="single_slider  d-flex align-items-center slider_bg_3 overlay">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-xl-12 col-md-12">
-                            <div class="slider_text text-center">
-                                <h3>Switzerland</h3>
-                                <p>Pixel perfect design with awesome contents</p>
-                                <a href="#" class="boxed-btn3">Explore Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {%endfor%}
+         
         </div>
 
     </div>
@@ -102,72 +79,19 @@ Home Page
                 </div>
             </div>
             <div class="row">
+               {%for country in countries%}
                 <div class="col-lg-4 col-md-6">
                     <div class="single_destination">
                         <div class="thumb">
-                            <img src="{%static 'img/destination/1.png'%}" alt="">
+                            <img src="{{country.c_image.url}}" alt="">
                         </div>
                         <div class="content">
-                            <p class="d-flex align-items-center">Italy <a href="travel_destination.html">  07 Places</a> </p>
+                            <p class="d-flex align-items-center"><a href="{%url 'show_countries_details' country.id %}"> {{country.c_name}}</a> </p>
                             
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_destination">
-                        <div class="thumb">
-                            <img src="{%static 'img/destination/2.png'%}" alt="">
-                        </div>
-                        <div class="content">
-                            <p class="d-flex align-items-center">Brazil <a href="travel_destination.html">  03 Places</a> </p>
-                            
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_destination">
-                        <div class="thumb">
-                            <img src="{%static 'img/destination/3.png'%}" alt="">
-                        </div>
-                        <div class="content">
-                            <p class="d-flex align-items-center">America <a href="travel_destination.html">  10 Places</a> </p>
-                            
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_destination">
-                        <div class="thumb">
-                            <img src="{%static 'img/destination/4.png'%}" alt="">
-                        </div>
-                        <div class="content">
-                            <p class="d-flex align-items-center">Nepal <a href="travel_destination.html">  02 Places</a> </p>
-                            
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_destination">
-                        <div class="thumb">
-                            <img src="{%static 'img/destination/5.png'%}" alt="">
-                        </div>
-                        <div class="content">
-                            <p class="d-flex align-items-center">Maldives <a href="travel_destination.html">  02 Places</a> </p>
-                            
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_destination">
-                        <div class="thumb">
-                            <img src="{%static 'img/destination/6.png'%}" alt="">
-                        </div>
-                        <div class="content">
-                            <p class="d-flex align-items-center">Indonesia <a href="travel_destination.html">  05 Places</a> </p>
-                            
-                        </div>
-                    </div>
-                </div>
+               {%endfor%}
             </div>
         </div>
     </div>
@@ -220,15 +144,16 @@ Home Page
                 </div>
             </div>
             <div class="row">
+               {%for trip in trips%}
                 <div class="col-lg-4 col-md-6">
                     <div class="single_place">
                         <div class="thumb">
-                            <img src="{%static 'img/place/1.png'%}" alt="">
-                            <a href="#" class="prise">$500</a>
+                            <img src="{{trip.t_image.url}}" alt="">
+                            <a href="#" class="prise">${{trip.t_price}}</a>
                         </div>
                         <div class="place_info">
-                            <a href="destination_details.html"><h3>California</h3></a>
-                            <p>United State of America</p>
+                            <a href=""><h3>{{trip.t_destination}}</h3></a>
+                            <p>{{trip.t_country}}</p>
                             <div class="rating_days d-flex justify-content-between">
                                 <span class="d-flex justify-content-center align-items-center">
                                      <i class="fa fa-star"></i> 
@@ -238,144 +163,17 @@ Home Page
                                      <i class="fa fa-star"></i>
                                      <a href="#">(20 Review)</a>
                                 </span>
-                                <div class="days">
-                                    <i class="fa fa-clock-o"></i>
-                                    <a href="#">5 Days</a>
-                                </div>
+                               
                             </div>
+                            <div class="days">
+                                <i class="fa fa-clock-o"></i>
+                                <a href="#">from {{trip.start_at}} to {{trip.end_at}} </a>
+                            </div>
+                            <a href="{%url 'travel_destinations' %}" class="btn btn-success">Show All Journies</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_place">
-                        <div class="thumb">
-                            <img src="{%static 'img/place/2.png'%}" alt="">
-                            <a href="#" class="prise">$500</a>
-                        </div>
-                        <div class="place_info">
-                            <a href="destination_details.html"><h3>Korola Megna</h3></a>
-                            <p>United State of America</p>
-                            <div class="rating_days d-flex justify-content-between">
-                                <span class="d-flex justify-content-center align-items-center">
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i>
-                                     <a href="#">(20 Review)</a>
-                                </span>
-                                <div class="days">
-                                    <i class="fa fa-clock-o"></i>
-                                    <a href="#">5 Days</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_place">
-                        <div class="thumb">
-                            <img src="{%static 'img/place/3.png'%}" alt="">
-                            <a href="#" class="prise">$500</a>
-                        </div>
-                        <div class="place_info">
-                            <a href="destination_details.html"><h3>London</h3></a>
-                            <p>United State of America</p>
-                            <div class="rating_days d-flex justify-content-between">
-                                <span class="d-flex justify-content-center align-items-center">
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i>
-                                     <a href="#">(20 Review)</a>
-                                </span>
-                                <div class="days">
-                                    <i class="fa fa-clock-o"></i>
-                                    <a href="#">5 Days</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_place">
-                        <div class="thumb">
-                            <img src="{%static 'img/place/4.png'%}" alt="">
-                            <a href="#" class="prise">$500</a>
-                        </div>
-                        <div class="place_info">
-                            <a href="destination_details.html"><h3>Miami Beach</h3></a>
-                            <p>United State of America</p>
-                            <div class="rating_days d-flex justify-content-between">
-                                <span class="d-flex justify-content-center align-items-center">
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i>
-                                     <a href="#">(20 Review)</a>
-                                </span>
-                                <div class="days">
-                                    <i class="fa fa-clock-o"></i>
-                                    <a href="#">5 Days</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_place">
-                        <div class="thumb">
-                            <img src="{%static 'img/place/5.png'%}" alt="">
-                            <a href="#" class="prise">$500</a>
-                        </div>
-                        <div class="place_info">
-                            <a href="destination_details.html"><h3>California</h3></a>
-                            <p>United State of America</p>
-                            <div class="rating_days d-flex justify-content-between">
-                                <span class="d-flex justify-content-center align-items-center">
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i>
-                                     <a href="#">(20 Review)</a>
-                                </span>
-                                <div class="days">
-                                    <i class="fa fa-clock-o"></i>
-                                    <a href="#">5 Days</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_place">
-                        <div class="thumb">
-                            <img src="{%static 'img/place/6.png'%}" alt="">
-                            <a href="#" class="prise">$500</a>
-                        </div>
-                        <div class="place_info">
-                            <a href="destination_details.html"><h3>Saintmartine Iceland</h3></a>
-                            <p>United State of America</p>
-                            <div class="rating_days d-flex justify-content-between">
-                                <span class="d-flex justify-content-center align-items-center">
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i>
-                                     <a href="#">(20 Review)</a>
-                                </span>
-                                <div class="days">
-                                    <i class="fa fa-clock-o"></i>
-                                    <a href="#">5 Days</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               {%endfor%}
             </div>
             <div class="row">
                 <div class="col-lg-12">
@@ -468,7 +266,7 @@ Home Page
                                     <div class="single_testmonial text-center">
                                         <div class="author_thumb">
                                             <img src="{%static 'img/testmonial/author.png'%}" alt="">
-                                        </div>
+                                        </div>  
                                         <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to help alleviate human suffering.</p>
                                         <div class="testmonial_author">
                                             <h3>- Tom Mouse</h3>
@@ -493,7 +291,7 @@ Home Page
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>  
             </div>
         </div>
     </div>
@@ -505,62 +303,81 @@ Home Page
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <div class="section_title text-center mb_70">
-                        <h3>Recent Trips</h3>
+                        <h3>Hotels</h3>
                     </div>
                 </div>
             </div>
             <div class="row">
+                {%for hotel in hotels%}
+               
                 <div class="col-lg-4 col-md-6">
-                    <div class="single_trip">
+                    <div class="single_place">
                         <div class="thumb">
-                            <img src="{%static 'img/trip/1.png'%}" alt="">
-                        </div>
-                        <div class="info">
-                            <div class="date">
-                                <span>Oct 12, 2019</span>
+                            <img src="{{hotel.h_image.url}}" width="200" alt="">
+                          
+                        </div><br>
+                        <div class="place_info">
+                            <h4>Address: {{hotel.h_address}}</h4>
+  
+                            <a><h3>location: {{hotel.h_location}}</h3></a>
+                            <h5>country: {{hotel.h_country}}</h5>
+                            <h5> contact: {{hotel.h_mobile}}</h5>
+                            <a href="#" style="color: orangered;" class="prise">{{hotel.r_price}} $</a>
+                            <br>
+                            <div class="rating_days d-flex justify-content-between">
+                                {%if request.user.is_superuser%}
+                                <a href="" data-target="#del_hotel{{hotel.id}}" data-toggle="modal" class="btn btn-danger">Delete</a>
+                            
+                                {%else%}
+                             <a href="{% url 'hotels_destinations' %}" class="btn btn-success">Show all</a>
+                            {%endif %}
                             </div>
-                            <a href="#">
-                                <h3>Journeys Are Best Measured In
-                                    New Friends</h3>
-                            </a>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_trip">
-                        <div class="thumb">
-                            <img src="{%static 'img/trip/2.png'%}" alt="">
-                        </div>
-                        <div class="info">
-                            <div class="date">
-                                <span>Oct 12, 2019</span>
-                            </div>
-                            <a href="#">
-                                <h3>Journeys Are Best Measured In
-                                    New Friends</h3>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_trip">
-                        <div class="thumb">
-                            <img src="{%static 'img/trip/3.png'%}" alt="">
-                        </div>
-                        <div class="info">
-                            <div class="date">
-                                <span>Oct 12, 2019</span>
-                            </div>
-                            <a href="#">
-                                <h3>Journeys Are Best Measured In
-                                    New Friends</h3>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                {%endfor%}
             </div>
         </div>
     </div>
-
+    <div class="recent_trip_area">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="section_title text-center mb_70">
+                        <h3>Resturants</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {%for Resturant in resturants%}
+               
+                <div class="col-lg-4 col-md-6">
+                    <div class="single_place">
+                        <div class="thumb">
+                            <img src="{{Resturant.r_image.url}}" width="200" alt="">
+                          
+                        </div><br>
+                        <div class="place_info">
+                            <h4>Address: {{Resturant.r_address}}</h4>
+  
+                            <a><h3>location: {{Resturant.t_location}}</h3></a>
+                            <h5>country: {{Resturant.r_country}}</h5>
+                            <h5> contact: {{Resturant.r_mobile}}</h5>
+                            <br>
+                            <div class="rating_days d-flex justify-content-between">
+                                {%if request.user.is_superuser%}
+                                <a href="" data-target="#del_hotel{{hotel.id}}" data-toggle="modal" class="btn btn-danger">Delete</a>
+                            
+                                {%else%}
+                             <a href="{% url 'resturant_destinations' %}" class="btn btn-success">Show all</a>
+                            {%endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {%endfor%}
+            </div>
+        </div>
+    </div>
 
     {% endblock%}

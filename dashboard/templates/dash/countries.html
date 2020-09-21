@@ -64,18 +64,24 @@ text-align:center;
       <tr>
      <td><img src="{{item.c_image.url}}" width="100"></td>
      
-     <td>{{item.c_name}}</td>
+     <td>
+    <a href="{%url 'show_countries_details' item.id %}">
+      {{item.c_name}}
+    
+    </a>
+      
+    </td>
     <td>{{item.c_hotels.all|length}}</td>
 
      <td>{{item.c_resturants.all|length}}</td>
     <td>{{item.c_trips.all|length}}</td>
     
           
-     <td><a href="" data-target="#del{{item.user.id}}" data-toggle="modal" class="btn btn-danger">Delete</a></td>
+     <td><a href="" data-target="#del{{item.id}}" data-toggle="modal" class="btn btn-danger">Delete</a></td>
 
       </tr>
 
-<div class="modal fade" id="del{{item.user.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="del{{item.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
